@@ -1,0 +1,101 @@
+﻿<Page x:Class="ShannonApp.AddCourse"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ShannonApp"
+      mc:Ignorable="d" 
+      d:DesignHeight="825.21" d:DesignWidth="537.815"
+      Title="AddCourse">
+
+    <Grid>
+        <Border Margin="15">
+            <StackPanel>
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Course Area: " FontWeight="Bold" Grid.Column="0"></TextBlock>
+                    <ComboBox Padding="2" x:Name="insertCourseArea" Grid.Column="1" SelectionChanged="insertCourseArea_SelectionChanged"></ComboBox>
+                </Grid>
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Number: " FontWeight="Bold" Grid.Column="0"></TextBlock>
+                    <TextBox Padding="2" x:Name="insertCourseNumber" Grid.Column="1"></TextBox>
+                </Grid>
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Title: " FontWeight="Bold" Grid.Column="0"></TextBlock>
+                    <TextBox Padding="2" x:Name="insertTitle" Grid.Column="1"></TextBox>
+                </Grid>
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Department: " FontWeight="Bold" Grid.Column="0"></TextBlock>
+                    <ComboBox Padding="2" x:Name="insertDepartment" Grid.Column="1" SelectionChanged="insertDepartment_SelectionChanged"></ComboBox>
+                </Grid>
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Instruction Mode: " FontWeight="Bold" Grid.Column="0"></TextBlock>
+                    <ComboBox Padding="2" x:Name="insertInstructionMode" Grid.Column="1" SelectionChanged="insertInstructionMode_SelectionChanged"></ComboBox>
+                </Grid>
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Instructor: " FontWeight="Bold" Grid.Column="0"></TextBlock>
+                    <ComboBox Padding="2" x:Name="insertInstructor" Grid.Column="1" SelectionChanged="insertInstructor_SelectionChanged"></ComboBox>
+                </Grid>
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Course ID: " FontWeight="Bold" Grid.Column="0"></TextBlock>
+                    <TextBox Padding="2" x:Name="insertCourseId" Grid.Column="1"></TextBox>
+                </Grid>
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Academic Org: " FontWeight="Bold" Grid.Column="0"></TextBlock>
+                    <ComboBox Padding="2" x:Name="insertAcademicOrg" Grid.Column="1" SelectionChanged="insertAcademicOrg_SelectionChanged"></ComboBox>
+                </Grid>
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Student Verification Method: " FontWeight="Bold" Grid.Column="0"></TextBlock>
+                    <TextBox Padding="2" x:Name="insertStudentVerificationMethod" Grid.Column="1"></TextBox>
+                </Grid>
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Notes: " FontWeight="Bold" Grid.Column="0"></TextBlock>
+                    <TextBox Padding="2" x:Name="insertNotes" Grid.Column="1"></TextBox>
+                </Grid>
+                <Button Content="Add Course" Margin="0, 20, 0, 0" x:Name="btnInsert" ></Button>
+
+                <TextBlock x:Name="txtInsertResponse" Margin="0 20" Text="" FontWeight="Bold" Foreground="Red" FontSize="15" HorizontalAlignment="Center"></TextBlock>
+            </StackPanel>
+
+        </Border>
+    </Grid>
+</Page>

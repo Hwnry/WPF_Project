@@ -1,0 +1,27 @@
+﻿<Window x:Class="ShannonApp.newCourseArea"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShannonApp"
+        mc:Ignorable="d"
+        Title="Add New Course Area" Height="200" Width="300"
+        WindowStartupLocation="CenterScreen"
+        ContentRendered="Window_ContentRendered">
+    <Grid>
+        <StackPanel>
+            <Grid Margin="20 60 20 20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Course Area: " Grid.Column="0"></TextBlock>
+                <TextBox x:Name="txtCourseArea" Padding="2" Grid.Column="1"></TextBox>
+            </Grid>
+            <WrapPanel HorizontalAlignment="Right" Margin="0 0 20 0">
+                <Button IsDefault="True" Name="btnDialogOk" Click="btnDialogOk_Click" MinWidth="60" Margin="0 0 15 0">_Accept</Button>
+                <Button IsCancel="True" MinWidth="60">_Cancel</Button>
+            </WrapPanel>
+        </StackPanel>
+    </Grid>
+</Window>

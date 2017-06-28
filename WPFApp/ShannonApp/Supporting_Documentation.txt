@@ -1,0 +1,50 @@
+ /*
+ Example of a select statement
+
+ SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\Users\\hhuffman\\Desktop\\Database\\Shannon.db");
+            conn.Open();
+            SQLiteCommand command = conn.CreateCommand();
+
+            command.CommandText = "SELECT * FROM COURSE_AREA;";
+            SQLiteDataReader sdr = command.ExecuteReader();
+
+            string result = "";
+
+            while (sdr.Read())
+            {
+                result += sdr.GetString(1);
+            }
+            sdr.Close();
+
+            conn.Close();
+
+ */
+ 
+ 
+ 
+ 
+ ////table Create
+            //command.CommandText = "CREATE TABLE IF NOT EXISTS std_tbl(id int, Name Varchar(30))";
+            //command.ExecuteNonQuery();
+
+            ////Inserting data
+            //command.CommandText = "INSERT INTO std_tbl(id, Name ) values (1, 'janak')";
+            //command.ExecuteNonQuery();
+
+            ////table Update
+            //command.CommandText = "UPDATE std_tbl SET Name='Zasmik' WHERE id = 1";
+            //command.ExecuteNonQuery();
+
+            ////Read from table
+            //command.CommandText = "SELECT * FROM std_tbl";
+            //SQLiteDataReader sdr = command.ExecuteReader();
+
+            //while (sdr.Read())
+            //{
+            //    Debug.WriteLine(sdr.GetString(1));
+            //}
+            //sdr.close();
+
+            ////Delete Record
+            //command.CommandText = "DELETE FROM std_tbl WHERE id=1";
+            //command.ExecuteNonQuery();
