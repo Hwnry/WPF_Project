@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,13 +29,14 @@ namespace ShannonApp
         private ObservableCollection<string> instructorList;
         private ObservableCollection<string> academicOrgList;
         private ObservableCollection<string> verificationList;
+        private Dictionary<string, string> inputFields;
 
         public AddCourse()
         {
             InitializeComponent();
-         //open a connection to the database
+            //open a connection to the database
 
-         SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\Users\\hhuffman\\Desktop\\WPF_Project\\Database\\Shannon.db");
+            SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\Users\\hhuffman\\Desktop\\WPF_Project\\Database\\Shannon.db");
             conn.Open();
             SQLiteCommand command = conn.CreateCommand();
 
@@ -87,6 +89,11 @@ namespace ShannonApp
             if (!list.Contains("<Create New>"))
                 list.Add("<Create New>");
 
+            if (!list.Contains(""))
+            {
+                list.Add("");
+            }
+
             list.Sort();
 
             oCollection = new ObservableCollection<string>(list);
@@ -112,6 +119,11 @@ namespace ShannonApp
 
             if (!list.Contains("<Create New>"))
                 list.Add("<Create New>");
+
+            if (!list.Contains(""))
+            {
+                list.Add("");
+            }
 
             list.Sort();
 
@@ -153,6 +165,11 @@ namespace ShannonApp
 
                     conn.Close();
                 }
+
+                else
+                {
+                    this.insertCourseArea.SelectedItem = "";
+                }
             }
         }
 
@@ -187,6 +204,11 @@ namespace ShannonApp
                     this.insertDepartment.SelectedItem = inputDepartmentDialog.Answer;
 
                     conn.Close();
+                }
+
+                else
+                {
+                    this.insertDepartment.SelectedItem = "";
                 }
 
             }
@@ -224,6 +246,11 @@ namespace ShannonApp
 
                     conn.Close();
                 }
+
+                else
+                {
+                    this.insertInstructionMode.SelectedItem = "";
+                }
             }
 
         }
@@ -236,8 +263,8 @@ namespace ShannonApp
             else if (insertInstructor.SelectedValue.ToString() == "<Create New>")
             {
                 newInstructor inputInstructorDialog = new newInstructor();
-                
-                if(inputInstructorDialog.ShowDialog() == true)
+
+                if (inputInstructorDialog.ShowDialog() == true)
                 {
                     //connect to the database
                     SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\Users\\hhuffman\\Desktop\\WPF_Project\\Database\\Shannon.db");
@@ -246,7 +273,7 @@ namespace ShannonApp
 
                     ////Inserting data
                     command.CommandText = "INSERT INTO instructor (Instructor_First_Name, Instructor_Last_Name) VALUES('" + inputInstructorDialog.firstAnswer + "' ,'" + inputInstructorDialog.lastAnswer + "');";
-                   command.ExecuteNonQuery();
+                    command.ExecuteNonQuery();
 
                     //refresh the list
                     populateInstructors(ref command, "SELECT Instructor_First_Name, Instructor_Last_Name from Instructor;", ref instructorList);
@@ -256,6 +283,11 @@ namespace ShannonApp
                     this.insertInstructor.SelectedItem = inputInstructorDialog.lastAnswer + ", " + inputInstructorDialog.firstAnswer;
 
                     conn.Close();
+                }
+
+                else
+                {
+                    insertInstructor.SelectedItem = "";
                 }
 
 
@@ -294,7 +326,267 @@ namespace ShannonApp
 
                     conn.Close();
                 }
+
+                else
+                {
+                    this.insertAcademicOrg.SelectedItem = "";
+                }
             }
+        }
+
+        private void btnInsert_Click(object sender, RoutedEventArgs e)
+        {
+            txtInsertResponse.Text = "";
+
+            SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\Users\\hhuffman\\Desktop\\WPF_Project\\Database\\Shannon.db");
+
+            conn.Open();
+            SQLiteCommand command = conn.CreateCommand();
+
+            inputFields = new Dictionary<string, string>();
+
+            inputFields.Clear();
+
+            if (insertCourseArea.Text == "" || insertCourseArea.Text == "<Create New>")
+            {
+                txtInsertResponse.Text = "Please select a valid Course Area.";
+                return;
+            }
+
+            else
+            {
+                //get the foreign key
+                command.CommandText = "Select ID from course_area where course_area = '" + insertCourseArea.Text + "';";
+                SQLiteDataReader sdr = command.ExecuteReader();
+
+                int id = -1;
+
+                while (sdr.Read())
+                {
+                    id = sdr.GetInt32(0);
+                }
+
+                if (id != -1)
+                    inputFields.Add("courseArea", id.ToString());
+
+                sdr.Close();
+            }
+
+            if (insertCourseNumber.Text == "")
+            {
+                txtInsertResponse.Text = "Please enter a valid Course Number.";
+                return;
+            }
+
+            else
+            {
+                //check whether or not the specified course already exists 
+                command.CommandText = "SELECT ID from course where fk_course_area = " + inputFields["courseArea"] + " and number = '" + insertCourseNumber.Text + "';";
+                SQLiteDataReader sdr = command.ExecuteReader();
+
+                int id = -1;
+
+                while (sdr.Read())
+                {
+                    id = sdr.GetInt32(0);
+                }
+
+                sdr.Close();
+
+                if(id != -1)
+                {
+                    txtInsertResponse.Text = "Course already exists."; 
+                    return;
+                }
+
+                inputFields.Add("courseNumber", insertCourseNumber.Text);
+            }
+
+            if (insertTitle.Text == "")
+            {
+                inputFields.Add("title", "NULL");
+            }
+
+            else
+            {
+                inputFields.Add("title", insertTitle.Text);
+            }
+
+            if (insertDepartment.Text == "")
+            {
+                inputFields.Add("department", "NULL");
+            }
+
+            else if (insertDepartment.Text == "<Create New>")
+            {
+                txtInsertResponse.Text = "Please select a valid department.";
+            }
+
+            else
+            {
+                //get the foreign key of the department
+                command.CommandText = "Select ID from department where department = '" + insertDepartment.Text + "';";
+                SQLiteDataReader sdr = command.ExecuteReader();
+
+                int id = -1;
+
+                while (sdr.Read())
+                {
+                    id = sdr.GetInt32(0);
+                }
+
+                if (id != -1)
+                    inputFields.Add("department", id.ToString());
+
+                sdr.Close();
+            }
+
+           
+            if (insertInstructionMode.Text == "")
+            {
+                inputFields.Add("instructionMode", "NULL");
+            }
+
+            else if (insertInstructionMode.Text == "<Create New>")
+            {
+                txtInsertResponse.Text = "Please select a valid instruction mode.";
+            }
+
+            else
+            {
+
+                command.CommandText = "Select ID from instruction_mode where instruction_mode = '" + insertInstructionMode.Text + "';";
+                SQLiteDataReader sdr = command.ExecuteReader();
+
+                int id = -1;
+
+                while (sdr.Read())
+                {
+                    id = sdr.GetInt32(0);
+                }
+
+                if (id != -1)
+                    inputFields.Add("instructionMode", id.ToString());
+
+                sdr.Close();
+            }
+
+            if (insertInstructor.Text == "")
+            {
+                inputFields.Add("instructor", "NULL");
+            }
+
+            else if (insertInstructor.Text == "<Create New>")
+            {
+                txtInsertResponse.Text = "Please select a valid instructor.";
+            }
+
+            else
+            {
+                string[] names = Regex.Split(insertInstructor.Text, ", ");
+
+                command.CommandText = "Select ID from instructor where instructor_first_name = '" +
+                    names[1] + "' and instructor_last_name = '"+ names[0]+"';";
+                SQLiteDataReader sdr = command.ExecuteReader();
+
+                int id = -1;
+
+                while (sdr.Read())
+                {
+                    id = sdr.GetInt32(0);
+                }
+
+                if (id != -1)
+                    inputFields.Add("instructor", id.ToString());
+
+                sdr.Close();
+
+            }
+
+            if (insertCourseId.Text == "")
+            {
+                inputFields.Add("courseId", "NULL");
+            }
+
+            else
+            {
+                inputFields.Add("courseId", insertCourseId.Text);
+            }
+
+            if (insertAcademicOrg.Text == "")
+            {
+                inputFields.Add("academicOrg", "NULL");
+            }
+
+            else if (insertAcademicOrg.Text == "<Create New>")
+            {
+                txtInsertResponse.Text = "Please select a valid academic org.";
+            }
+
+            else
+            {
+                command.CommandText = "Select ID from academic_org where academic_org = '" + insertAcademicOrg.Text + "';";
+                SQLiteDataReader sdr = command.ExecuteReader();
+
+                int id = -1;
+
+                while (sdr.Read())
+                {
+                    id = sdr.GetInt32(0);
+                }
+
+                if (id != -1)
+                    inputFields.Add("academicOrg", id.ToString());
+
+                sdr.Close();
+            }
+
+            if (insertStudentVerificationMethod.Text == "")
+            {
+                inputFields.Add("studentVerif", "NULL");
+            }
+
+            else
+            {
+                inputFields.Add("studentVerif", insertStudentVerificationMethod.Text);
+            }
+
+            if (insertNotes.Text == "")
+            {
+                inputFields.Add("notes", "NULL");
+            }
+
+            else
+            {
+                inputFields.Add("notes", insertNotes.Text);
+            }
+
+            if (chkBoxApproved.IsChecked == true)
+            {
+                inputFields.Add("approved", "True");
+            }
+
+            else
+            {
+                inputFields.Add("approved", "False");
+            }
+
+
+            //insert the course with the corresponding properties
+            command.CommandText = "INSERT INTO course(number, fk_course_area, course_id, student_verification_method, notes, fk_department," +
+                "fk_instruction_mode, fk_instructor, fk_academic_org, title, approved) " +
+                "values ('"+ inputFields["courseNumber"]+ "',"
+                + inputFields["courseArea"]+", " + inputFields["courseId"] + ", '" + inputFields["studentVerif"]+ "', '" + inputFields["notes"] +
+                "', '" + inputFields["department"]+"', "+ inputFields["instructionMode"]+"," + inputFields["instructor"]+"," + inputFields["academicOrg"] +"," +
+                "'" + inputFields["title"]+ "','"+ inputFields["approved"]+"');";
+            command.ExecuteNonQuery();
+
+
+
+            conn.Close();
+
+            NavigationService nav = NavigationService.GetNavigationService(this);
+            nav.Navigate(new Uri("MainPage.xaml", UriKind.RelativeOrAbsolute));
         }
     }
 }

@@ -32,7 +32,18 @@ namespace ShannonApp
 
         private void btnDialogOk_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = true;
+
+            txtError.Text = ""; 
+
+            if(txtInstructorFirstName.Text != "" && txtInstructorLastName.Text != "")
+            {
+                DialogResult = true;
+            }
+
+            else
+            {
+                txtError.Text = "Please enter first and last name.";
+            }
         }
 
         public string lastAnswer

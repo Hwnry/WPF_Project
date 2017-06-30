@@ -10,7 +10,8 @@
         ContentRendered="Window_ContentRendered">
     <Grid>
         <StackPanel>
-            <Grid Margin="20 60 20 2">
+            <TextBlock x:Name="txtError" Text="" FontWeight="Bold" Foreground="Red" Margin="20 10 20 0"></TextBlock>
+            <Grid Margin="20 30 20 2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
