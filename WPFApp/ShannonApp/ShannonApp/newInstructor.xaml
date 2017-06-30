@@ -1,0 +1,35 @@
+﻿<Window x:Class="ShannonApp.newInstructor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShannonApp"
+        mc:Ignorable="d"
+        Title="newInstructor" Height="200" Width="300"
+        WindowStartupLocation="CenterScreen"
+        ContentRendered="Window_ContentRendered">
+    <Grid>
+        <StackPanel>
+            <Grid Margin="20 60 20 2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Instructor Last Name: " Grid.Column="0"></TextBlock>
+                <TextBox x:Name="txtInstructorLastName" Padding="2" Grid.Column="1"></TextBox>
+            </Grid>
+            <Grid Margin="20 2 20 5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Instructor First Name: " Grid.Column="0"></TextBlock>
+                <TextBox x:Name="txtInstructorFirstName" Padding="2" Grid.Column="1"></TextBox>
+            </Grid>
+            <WrapPanel HorizontalAlignment="Right" Margin="0 0 20 0">
+                <Button IsDefault="True" Name="btnDialogOk" Click="btnDialogOk_Click" MinWidth="60" Margin="0 0 15 0">_Accept</Button>
+                <Button IsCancel="True" MinWidth="60">_Cancel</Button>
+            </WrapPanel>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -229,7 +229,37 @@ namespace ShannonApp
         }
         private void insertInstructor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (insertInstructor.SelectedValue.ToString() != "<Create New>")
+            {
+                return;
+            }
+            else if (insertInstructor.SelectedValue.ToString() == "<Create New>")
+            {
+                newInstructor inputInstructorDialog = new newInstructor();
+                
+                if(inputInstructorDialog.ShowDialog() == true)
+                {
+                    //connect to the database
+                    SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\Users\\hhuffman\\Desktop\\WPF_Project\\Database\\Shannon.db");
+                    conn.Open();
+                    SQLiteCommand command = conn.CreateCommand();
 
+                    ////Inserting data
+                    command.CommandText = "INSERT INTO instructor (Instructor_First_Name, Instructor_Last_Name) VALUES('" + inputInstructorDialog.firstAnswer + "' ,'" + inputInstructorDialog.lastAnswer + "');";
+                   command.ExecuteNonQuery();
+
+                    //refresh the list
+                    populateInstructors(ref command, "SELECT Instructor_First_Name, Instructor_Last_Name from Instructor;", ref instructorList);
+
+                    this.insertInstructor.ItemsSource = instructorList;
+
+                    this.insertInstructor.SelectedItem = inputInstructorDialog.lastAnswer + ", " + inputInstructorDialog.firstAnswer;
+
+                    conn.Close();
+                }
+
+
+            }
         }
 
         private void insertAcademicOrg_SelectionChanged(object sender, SelectionChangedEventArgs e)

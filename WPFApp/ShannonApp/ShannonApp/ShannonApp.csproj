@@ -114,6 +114,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="newInstructor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="newAcademicOrg.xaml.cs">
@@ -127,6 +131,9 @@
     </Compile>
     <Compile Include="newInstructionMode.xaml.cs">
       <DependentUpon>newInstructionMode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="newInstructor.xaml.cs">
+      <DependentUpon>newInstructor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
