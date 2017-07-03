@@ -31,7 +31,6 @@ namespace ShannonApp
         private ObservableCollection<string> verificationList;
         private Dictionary<string, string> inputFields;
 
-
         public AddCourse()
         {
             InitializeComponent();
@@ -591,4 +590,3 @@ namespace ShannonApp
         }
     }
 }
-
