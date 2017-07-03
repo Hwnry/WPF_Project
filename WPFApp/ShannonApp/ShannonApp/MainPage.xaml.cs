@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -38,9 +39,49 @@ namespace ShannonApp
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
+            populateData();
+        }
+
+        private void queryResults_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            btnRemove.IsEnabled = true;
+            btnUpdate.IsEnabled = true;
+        }
+
+        private void btnRemove_Click(object sender, RoutedEventArgs e)
+        {
+            remove removeDialogue = new remove();
+
+            if (removeDialogue.ShowDialog() == true)
+            {
+                //run query to remove the course
+                SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\WPF_Project\\Database\\Shannon.db");
+                conn.Open();
+                SQLiteCommand command = conn.CreateCommand();
+
+                Course test = queryResults.SelectedItem as Course;
+                if (test != null)
+                {
+                    command.CommandText = "DELETE FROM course WHERE ID = " + test.ID.ToString() +";";
+                    command.ExecuteNonQuery();
+                    txtErrorBlock.Text = "Course Removed";
+                    populateData();
+                }
+
+                else
+                {
+                    txtErrorBlock.Text = "Error removing the course."; 
+                }
+
+
+            }
+        }
+
+        private void populateData()
+        {
             courseData = new List<Course>();
 
-            if(txtCourseArea.Text == "" && txtCourseNumber.Text == "")
+            if (txtCourseArea.Text == "" && txtCourseNumber.Text == "")
             {
                 //get everything
                 //connect to the database
@@ -63,12 +104,12 @@ namespace ShannonApp
                 queryResults.ItemsSource = courseData;
             }
 
-            else if( txtCourseArea.Text != "" && txtCourseNumber.Text == "")
+            else if (txtCourseArea.Text != "" && txtCourseNumber.Text == "")
             {
                 //get only matching course areas
             }
 
-            else if(txtCourseArea.Text == "" && txtCourseNumber.Text != "")
+            else if (txtCourseArea.Text == "" && txtCourseNumber.Text != "")
             {
                 //only search course number
             }
@@ -76,22 +117,6 @@ namespace ShannonApp
             else
             {
                 //both fields are being searched
-            }
-        }
-
-        private void queryResults_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            btnRemove.IsEnabled = true;
-            btnUpdate.IsEnabled = true;
-        }
-
-        private void btnRemove_Click(object sender, RoutedEventArgs e)
-        {
-            remove removeDialogue = new remove();
-
-            if(removeDialogue.ShowDialog() == true)
-            {
-                //run query to remove the course
             }
         }
     }
