@@ -1,0 +1,22 @@
+﻿<Window x:Class="ShannonApp.remove"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShannonApp"
+        mc:Ignorable="d"
+        Title="Removing Course" Height="200" Width="300"
+        WindowStartupLocation="CenterScreen"
+        ContentRendered="Window_ContentRendered">
+    <Border Margin="10">
+        <StackPanel>
+            <Grid>
+                <TextBlock Margin="0 40 0 10" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" Text="Are you sure you want to remove the selected course?"></TextBlock>
+            </Grid>
+            <WrapPanel HorizontalAlignment="Center">
+                <Button IsDefault="True" Name="btnDialogOk" Click="btnDialogOk_Click" MinWidth="60" Margin="0 0 15 0">_Confirm</Button>
+                <Button IsCancel="True" MinWidth="60">_Cancel</Button>
+            </WrapPanel>
+        </StackPanel>
+    </Border>
+</Window>

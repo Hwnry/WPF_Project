@@ -107,3 +107,5 @@ C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\ShannonApp.Properties.Reso
 C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\ShannonApp.csproj.GenerateResource.Cache
 C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\ShannonApp.exe
 C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\ShannonApp.pdb
+C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\remove.g.cs
+C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\remove.baml
