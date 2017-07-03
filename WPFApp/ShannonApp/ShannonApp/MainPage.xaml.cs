@@ -30,5 +30,28 @@ namespace ShannonApp
             NavigationService nav = NavigationService.GetNavigationService(this);
             nav.Navigate(new Uri("AddCourse.xaml", UriKind.RelativeOrAbsolute));
         }
+
+        private void btnSubmit_Click(object sender, RoutedEventArgs e)
+        {
+            if(txtCourseArea.Text == "" && txtCourseNumber.Text == "")
+            {
+                //get everything
+            }
+
+            else if( txtCourseArea.Text != "" && txtCourseNumber.Text == "")
+            {
+                //get only matching course areas
+            }
+
+            else if(txtCourseArea.Text == "" && txtCourseNumber.Text != "")
+            {
+                //only search course number
+            }
+
+            else
+            {
+                //both fields are being searched
+            }
+        }
     }
 }
