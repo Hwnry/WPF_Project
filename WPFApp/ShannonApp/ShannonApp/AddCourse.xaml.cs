@@ -31,12 +31,13 @@ namespace ShannonApp
         private ObservableCollection<string> verificationList;
         private Dictionary<string, string> inputFields;
 
+
         public AddCourse()
         {
             InitializeComponent();
             //open a connection to the database
 
-            SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\Users\\hhuffman\\Desktop\\WPF_Project\\Database\\Shannon.db");
+            SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\WPF_Project\\Database\\Shannon.db");
             conn.Open();
             SQLiteCommand command = conn.CreateCommand();
 
@@ -146,7 +147,7 @@ namespace ShannonApp
                 if (inputCourseDialog.ShowDialog() == true)
                 {
                     //connect to the database
-                    SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\Users\\hhuffman\\Desktop\\WPF_Project\\Database\\Shannon.db");
+                    SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\WPF_Project\\Database\\Shannon.db");
                     conn.Open();
                     SQLiteCommand command = conn.CreateCommand();
 
@@ -188,7 +189,7 @@ namespace ShannonApp
                 if (inputDepartmentDialog.ShowDialog() == true)
                 {
                     //connect to the database
-                    SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\Users\\hhuffman\\Desktop\\WPF_Project\\Database\\Shannon.db");
+                    SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\WPF_Project\\Database\\Shannon.db");
                     conn.Open();
                     SQLiteCommand command = conn.CreateCommand();
 
@@ -229,7 +230,7 @@ namespace ShannonApp
                 if (inputInstructionDialog.ShowDialog() == true)
                 {
                     //connect to the database
-                    SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\Users\\hhuffman\\Desktop\\WPF_Project\\Database\\Shannon.db");
+                    SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\WPF_Project\\Database\\Shannon.db");
                     conn.Open();
                     SQLiteCommand command = conn.CreateCommand();
 
@@ -267,7 +268,7 @@ namespace ShannonApp
                 if (inputInstructorDialog.ShowDialog() == true)
                 {
                     //connect to the database
-                    SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\Users\\hhuffman\\Desktop\\WPF_Project\\Database\\Shannon.db");
+                    SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\WPF_Project\\Database\\Shannon.db");
                     conn.Open();
                     SQLiteCommand command = conn.CreateCommand();
 
@@ -309,7 +310,7 @@ namespace ShannonApp
                 if (inputAcademicDialog.ShowDialog() == true)
                 {
                     //connect to the database
-                    SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\Users\\hhuffman\\Desktop\\WPF_Project\\Database\\Shannon.db");
+                    SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\WPF_Project\\Database\\Shannon.db");
                     conn.Open();
                     SQLiteCommand command = conn.CreateCommand();
 
@@ -338,7 +339,7 @@ namespace ShannonApp
         {
             txtInsertResponse.Text = "";
 
-            SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\Users\\hhuffman\\Desktop\\WPF_Project\\Database\\Shannon.db");
+            SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\WPF_Project\\Database\\Shannon.db");
 
             conn.Open();
             SQLiteCommand command = conn.CreateCommand();
@@ -393,9 +394,9 @@ namespace ShannonApp
 
                 sdr.Close();
 
-                if(id != -1)
+                if (id != -1)
                 {
-                    txtInsertResponse.Text = "Course already exists."; 
+                    txtInsertResponse.Text = "Course already exists.";
                     return;
                 }
 
@@ -441,7 +442,7 @@ namespace ShannonApp
                 sdr.Close();
             }
 
-           
+
             if (insertInstructionMode.Text == "")
             {
                 inputFields.Add("instructionMode", "NULL");
@@ -486,7 +487,7 @@ namespace ShannonApp
                 string[] names = Regex.Split(insertInstructor.Text, ", ");
 
                 command.CommandText = "Select ID from instructor where instructor_first_name = '" +
-                    names[1] + "' and instructor_last_name = '"+ names[0]+"';";
+                    names[1] + "' and instructor_last_name = '" + names[0] + "';";
                 SQLiteDataReader sdr = command.ExecuteReader();
 
                 int id = -1;
@@ -575,10 +576,10 @@ namespace ShannonApp
             //insert the course with the corresponding properties
             command.CommandText = "INSERT INTO course(number, fk_course_area, course_id, student_verification_method, notes, fk_department," +
                 "fk_instruction_mode, fk_instructor, fk_academic_org, title, approved) " +
-                "values ('"+ inputFields["courseNumber"]+ "',"
-                + inputFields["courseArea"]+", " + inputFields["courseId"] + ", '" + inputFields["studentVerif"]+ "', '" + inputFields["notes"] +
-                "', '" + inputFields["department"]+"', "+ inputFields["instructionMode"]+"," + inputFields["instructor"]+"," + inputFields["academicOrg"] +"," +
-                "'" + inputFields["title"]+ "','"+ inputFields["approved"]+"');";
+                "values ('" + inputFields["courseNumber"] + "',"
+                + inputFields["courseArea"] + ", " + inputFields["courseId"] + ", '" + inputFields["studentVerif"] + "', '" + inputFields["notes"] +
+                "', '" + inputFields["department"] + "', " + inputFields["instructionMode"] + "," + inputFields["instructor"] + "," + inputFields["academicOrg"] + "," +
+                "'" + inputFields["title"] + "','" + inputFields["approved"] + "');";
             command.ExecuteNonQuery();
 
 
