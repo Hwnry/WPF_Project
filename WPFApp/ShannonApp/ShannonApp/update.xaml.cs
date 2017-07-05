@@ -70,7 +70,7 @@ namespace ShannonApp
             updateInstructor.ItemsSource = instructorList;
 
             //set the data to match the selected input
-            updateCourseArea.SelectedItem = MainPage.selectedCourse.courseArea;
+            updateCourseArea.SelectedItem = MainPage.selectedCourse.Course_Area;
 
             updateCourseNumber.Text = MainPage.selectedCourse.Course_Number;
             
@@ -148,7 +148,7 @@ namespace ShannonApp
 
             updatedCourse = new Course();
 
-            updatedCourse.courseArea = updateCourseArea.Text;
+            updatedCourse.Course_Area = updateCourseArea.Text;
 
             updatedCourse.Course_Number = updateCourseNumber.Text;
         }
