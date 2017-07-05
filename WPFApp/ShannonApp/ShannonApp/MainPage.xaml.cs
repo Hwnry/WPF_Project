@@ -87,21 +87,23 @@ namespace ShannonApp
         {
             courseData = new List<Course>();
 
+            //connect to the database
+            SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\WPF_Project\\Database\\Shannon.db");
+            conn.Open();
+            SQLiteCommand command = conn.CreateCommand();
+
             if (txtCourseArea.Text == "" && txtCourseNumber.Text == "")
             {
                 //get everything
-                //connect to the database
-                SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\WPF_Project\\Database\\Shannon.db");
-                conn.Open();
-                SQLiteCommand command = conn.CreateCommand();
-                command.CommandText = "SELECT Course.ID, Course_Area, number FROM COURSE LEFT JOIN Course_Area on course.fk_course_area = course_area.id;";
+                command.CommandText = "SELECT Course.ID, Course_Area, number, title FROM COURSE LEFT JOIN Course_Area on course.fk_course_area = course_area.id;";
                 SQLiteDataReader sdr = command.ExecuteReader();
 
 
                 while (sdr.Read())
                 {
 
-                    courseData.Add(new Course { ID = sdr.GetInt32(0), courseArea = sdr.GetString(1) ,Course_Number = sdr.GetString(2) });
+                    courseData.Add(new Course { ID = sdr.GetInt32(0), courseArea = sdr.GetString(1) ,Course_Number = sdr.GetString(2),
+                    Title = sdr.GetString(3)});
                 }
                 sdr.Close();
 
@@ -122,7 +124,7 @@ namespace ShannonApp
 
             else
             {
-                //both fields are being searched
+                //both fields are being searched             
             }
         }
 

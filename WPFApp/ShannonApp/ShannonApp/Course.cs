@@ -9,10 +9,11 @@ namespace ShannonApp
     public class Course
     {
         public int ID { get; set; }
+        public string approvalDate { get; set; }
         public string courseArea { get; set; }
         public string Course_Number { get; set; }
-        //public string title { get; set; }
-        //public string department { get; set; }
+        public string Title { get; set; }
+        public string department { get; set; }
         //public string instructionMode { get; set; }
         //public string instructor { get; set; }
         //public int courseId { get; set; }
