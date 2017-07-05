@@ -32,7 +32,7 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Button x:Name="btnRemove" Grid.Column="0" Content="Remove" Margin="0 0 20 0" Padding="10" IsEnabled="False" Click="btnRemove_Click"></Button>
-                    <Button x:Name="btnUpdate" Grid.Column="1" Content="Update" Margin="20 0 0 0" Padding="10" IsEnabled="False"></Button>
+                    <Button x:Name="btnUpdate" Grid.Column="1" Content="Update" Margin="20 0 0 0" Padding="10" IsEnabled="False" Click="btnUpdate_Click"></Button>
                 </Grid>
                 <Button Margin="0, 20,0,0" Content="Add New Course" Padding="10" x:Name="btnAdd" Click="btnAdd_Click"></Button>
 

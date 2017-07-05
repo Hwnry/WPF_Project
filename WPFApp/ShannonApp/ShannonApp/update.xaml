@@ -1,0 +1,115 @@
+﻿<Window x:Class="ShannonApp.update"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShannonApp"
+        mc:Ignorable="d"
+        Title="update" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen"
+        ContentRendered="Window_ContentRendered">
+    <Grid>
+        <Border Margin="15">
+            <StackPanel>
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Course Area: " FontWeight="Bold" Grid.Column="0"></TextBlock>
+                    <ComboBox Padding="2" x:Name="updateCourseArea" Grid.Column="1"></ComboBox>
+                </Grid>
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Number: " FontWeight="Bold" Grid.Column="0"></TextBlock>
+                    <TextBox Padding="2" x:Name="updateCourseNumber" Grid.Column="1"></TextBox>
+                </Grid>
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Title: " FontWeight="Bold" Grid.Column="0"></TextBlock>
+                    <TextBox Padding="2" x:Name="updateTitle" Grid.Column="1"></TextBox>
+                </Grid>
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Department: " FontWeight="Bold" Grid.Column="0"></TextBlock>
+                    <ComboBox Padding="2" x:Name="updateDepartment" Grid.Column="1"></ComboBox>
+                </Grid>
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Instruction Mode: " FontWeight="Bold" Grid.Column="0"></TextBlock>
+                    <ComboBox Padding="2" x:Name="updateInstructionMode" Grid.Column="1"></ComboBox>
+                </Grid>
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Instructor: " FontWeight="Bold" Grid.Column="0"></TextBlock>
+                    <ComboBox Padding="2" x:Name="updateInstructor" Grid.Column="1" ></ComboBox>
+                </Grid>
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Course ID: " FontWeight="Bold" Grid.Column="0"></TextBlock>
+                    <TextBox Padding="2" x:Name="updateCourseId" Grid.Column="1"></TextBox>
+                </Grid>
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Academic Org: " FontWeight="Bold" Grid.Column="0"></TextBlock>
+                    <ComboBox Padding="2" x:Name="updateAcademicOrg" Grid.Column="1"></ComboBox>
+                </Grid>
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Student Verification Method: " FontWeight="Bold" Grid.Column="0"></TextBlock>
+                    <TextBox Padding="2" x:Name="updateStudentVerificationMethod" Grid.Column="1"></TextBox>
+                </Grid>
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Notes: " FontWeight="Bold" Grid.Column="0"></TextBlock>
+                    <TextBox Padding="2" x:Name="updateNotes" Grid.Column="1"></TextBox>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Approved: " FontWeight="Bold" Grid.Column="0"></TextBlock>
+                    <CheckBox x:Name="chkBoxApproved" Grid.Column="1"></CheckBox>
+                </Grid>
+
+                <WrapPanel HorizontalAlignment="Center" Margin="0 10  0 0">
+                    <Button IsDefault="True" Name="btnDialogOk" Click="btnDialogOk_Click" MinWidth="80" Margin="0 0 15 0">_Save Changes</Button>
+                    <Button IsCancel="True" MinWidth="80">_Cancel</Button>
+                </WrapPanel>
+
+                <TextBlock x:Name="txtUpdateResponse"  Margin="0 5 0 0" Text="" FontWeight="Bold" Foreground="Red" FontSize="15" HorizontalAlignment="Center"></TextBlock>
+                
+                
+            </StackPanel>
+        </Border>
+    </Grid>
+
+</Window>

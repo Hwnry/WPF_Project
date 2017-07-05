@@ -75,6 +75,9 @@
     <Compile Include="remove.xaml.cs">
       <DependentUpon>remove.xaml</DependentUpon>
     </Compile>
+    <Compile Include="update.xaml.cs">
+      <DependentUpon>update.xaml</DependentUpon>
+    </Compile>
     <Page Include="AddCourse.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -123,6 +126,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="remove.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="update.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

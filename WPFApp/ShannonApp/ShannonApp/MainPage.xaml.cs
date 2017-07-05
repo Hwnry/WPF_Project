@@ -25,10 +25,12 @@ namespace ShannonApp
     public partial class MainPage : Page
     {
         private List<Course> courseData;
+        public static Course selectedCourse;
 
         public MainPage()
         {
             InitializeComponent();
+            selectedCourse = new Course();
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -46,6 +48,8 @@ namespace ShannonApp
         {
             btnRemove.IsEnabled = true;
             btnUpdate.IsEnabled = true;
+
+            selectedCourse = queryResults.SelectedItem as Course;
         }
 
         private void btnRemove_Click(object sender, RoutedEventArgs e)
@@ -66,6 +70,8 @@ namespace ShannonApp
                     command.ExecuteNonQuery();
                     txtErrorBlock.Text = "Course Removed";
                     populateData();
+
+                    //TO DO: remove the associated dates?
                 }
 
                 else
@@ -118,6 +124,12 @@ namespace ShannonApp
             {
                 //both fields are being searched
             }
+        }
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            update updateDialogue = new update();
+            updateDialogue.Show();
         }
     }
 }

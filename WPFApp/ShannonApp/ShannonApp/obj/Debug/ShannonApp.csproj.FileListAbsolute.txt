@@ -91,6 +91,7 @@ C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\newCourseArea.g.cs
 C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\newDepartment.g.cs
 C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\newInstructionMode.g.cs
 C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\newInstructor.g.cs
+C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\remove.g.cs
 C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\App.g.cs
 C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\ShannonApp_MarkupCompile.cache
 C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\ShannonApp_MarkupCompile.lref
@@ -102,10 +103,11 @@ C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\newCourseArea.baml
 C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\newDepartment.baml
 C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\newInstructionMode.baml
 C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\newInstructor.baml
+C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\remove.baml
 C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\ShannonApp.g.resources
 C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\ShannonApp.Properties.Resources.resources
 C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\ShannonApp.csproj.GenerateResource.Cache
 C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\ShannonApp.exe
 C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\ShannonApp.pdb
-C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\remove.g.cs
-C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\remove.baml
+C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\update.g.cs
+C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\update.baml
