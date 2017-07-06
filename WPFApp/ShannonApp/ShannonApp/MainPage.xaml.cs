@@ -36,17 +36,23 @@ namespace ShannonApp
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
+            txtErrorBlock.Text = "";
+
             NavigationService nav = NavigationService.GetNavigationService(this);
             nav.Navigate(new Uri("AddCourse.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
+            txtErrorBlock.Text = "";
+
             populateData();
         }
 
         private void queryResults_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            txtErrorBlock.Text = "";
+
             btnRemove.IsEnabled = true;
             btnUpdate.IsEnabled = true;
 
@@ -55,6 +61,8 @@ namespace ShannonApp
 
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
+            txtErrorBlock.Text = "";
+
             remove removeDialogue = new remove();
 
             if (removeDialogue.ShowDialog() == true)
@@ -67,7 +75,7 @@ namespace ShannonApp
                 Course test = queryResults.SelectedItem as Course;
                 if (test != null)
                 {
-                    command.CommandText = "DELETE FROM course WHERE ID = " + test.ID.ToString() + ";";
+                    command.CommandText = "DELETE FROM course WHERE ID = " + test.ID.ToString() + ";" + "DELETE FROM approval_date WHERE fk_course =" + test.ID.ToString() +";";
                     command.ExecuteNonQuery();
                     txtErrorBlock.Text = "Course Removed";
                     populateData();
@@ -188,168 +196,175 @@ namespace ShannonApp
 
             command.CommandText = query;
 
-            SQLiteDataReader sdr = command.ExecuteReader();
-
-            while (sdr.Read())
+            try
             {
-                Course temp = new Course();
+                SQLiteDataReader sdr = command.ExecuteReader();
 
-                //try to get each data entry
+                while (sdr.Read())
+                {
+                    Course temp = new Course();
 
-                // id
-                try
-                {
-                    temp.ID = sdr.GetInt32(0);
-                }
-                catch
-                {
-                    temp.ID = -1;
-                    txtErrorBlock.Text = "Error retrieving data from the database.";
-                    return;
+                    //try to get each data entry
+
+                    // id
+                    try
+                    {
+                        temp.ID = sdr.GetInt32(0);
+                    }
+                    catch
+                    {
+                        temp.ID = -1;
+                        txtErrorBlock.Text = "Error retrieving data from the database.";
+                        return;
+                    }
+
+                    //approval date
+                    try
+                    {
+                        temp.Approval_Date = sdr.GetDateTime(1);
+                    }
+                    catch
+                    {
+                        temp.Approval_Date = new DateTime(1, 1, 1);
+                    }
+
+                    //course area
+                    try
+                    {
+                        temp.Course_Area = sdr.GetString(2);
+                    }
+                    catch
+                    {
+                        temp.Course_Area = "Error";
+                        txtErrorBlock.Text = "Error retrieving data from the database.";
+                        return;
+                    }
+                    //course number
+                    try
+                    {
+                        temp.Course_Number = sdr.GetString(3);
+                    }
+                    catch
+                    {
+                        temp.Course_Number = "Error";
+                        txtErrorBlock.Text = "Error retrieving data from the database.";
+                        return;
+                    }
+                    //title
+                    try
+                    {
+                        temp.Title = sdr.GetString(4);
+                    }
+                    catch
+                    {
+                        temp.Title = "NULL";
+                    }
+                    //department
+                    try
+                    {
+                        temp.Department = sdr.GetString(5);
+                    }
+                    catch
+                    {
+                        temp.Department = "NULL";
+                    }
+                    //instructor
+                    try
+                    {
+                        temp.Instructor = sdr.GetString(6) + ", " + sdr.GetString(7);
+                    }
+                    catch
+                    {
+                        temp.Instructor = "NULL";
+                    }
+                    //academic org
+                    try
+                    {
+                        temp.Academic_Org = sdr.GetString(8);
+                    }
+                    catch
+                    {
+                        temp.Academic_Org = "NULL";
+                    }
+                    //instruction mode
+                    try
+                    {
+                        temp.Instruction_Mode = sdr.GetString(9);
+                    }
+                    catch
+                    {
+                        temp.Instruction_Mode = "NULL";
+                    }
+                    //color code
+                    try
+                    {
+                        temp.Grandfather_Color_Code = sdr.GetString(10);
+                    }
+                    catch
+                    {
+                        temp.Grandfather_Color_Code = "NULL";
+                    }
+                    //course id
+                    try
+                    {
+                        temp.Course_Id = sdr.GetInt32(11);
+                    }
+                    catch
+                    {
+                        temp.Course_Id = -1;
+                    }
+                    //student verification method
+                    try
+                    {
+                        temp.Student_Verification_Method = sdr.GetString(12);
+                    }
+                    catch
+                    {
+                        temp.Student_Verification_Method = "NULL";
+                    }
+                    //grandfather
+                    try
+                    {
+                        temp.Grandfather = Convert.ToBoolean(sdr.GetString(13));
+                    }
+                    catch
+                    {
+                        temp.Grandfather = false;
+                    }
+                    //notes
+                    try
+                    {
+                        temp.Notes = sdr.GetString(14);
+                    }
+                    catch
+                    {
+                        temp.Notes = "NULL";
+                    }
+                    //approved
+                    try
+                    {
+                        temp.Approved = Convert.ToBoolean(sdr.GetString(15));
+                    }
+                    catch
+                    {
+                        temp.Approved = false;
+                    }
+
+                    courseData.Add(temp);
                 }
 
-                //approval date
-                try
-                {
-                    temp.Approval_Date = sdr.GetDateTime(1);
-                }
-                catch
-                {
-                    temp.Approval_Date = new DateTime(1, 1, 1);
-                }
+                sdr.Close();
 
-                //course area
-                try
-                {
-                    temp.Course_Area = sdr.GetString(2);
-                }
-                catch
-                {
-                    temp.Course_Area = "Error";
-                    txtErrorBlock.Text = "Error retrieving data from the database.";
-                    return;
-                }
-                //course number
-                try
-                {
-                    temp.Course_Number = sdr.GetString(3);
-                }
-                catch
-                {
-                    temp.Course_Number = "Error";
-                    txtErrorBlock.Text = "Error retrieving data from the database.";
-                    return;
-                }
-                //title
-                try
-                {
-                    temp.Title = sdr.GetString(4);
-                }
-                catch
-                {
-                    temp.Title = "NULL";
-                }
-                //department
-                try
-                {
-                    temp.Department = sdr.GetString(5);
-                }
-                catch
-                {
-                    temp.Department = "NULL";
-                }
-                //instructor
-                try
-                {
-                    temp.Instructor = sdr.GetString(6) + ", " + sdr.GetString(7);
-                }
-                catch
-                {
-                    temp.Instructor = "NULL";
-                }
-                //academic org
-                try
-                {
-                    temp.Academic_Org = sdr.GetString(8);
-                }
-                catch
-                {
-                    temp.Academic_Org = "NULL";
-                }
-                //instruction mode
-                try
-                {
-                    temp.Instruction_Mode = sdr.GetString(9);
-                }
-                catch
-                {
-                    temp.Instruction_Mode = "NULL";
-                }
-                //color code
-                try
-                {
-                    temp.Grandfather_Color_Code = sdr.GetString(10);
-                }
-                catch
-                {
-                    temp.Grandfather_Color_Code = "NULL";
-                }
-                //course id
-                try
-                {
-                    temp.Course_Id = sdr.GetInt32(11);
-                }
-                catch
-                {
-                    temp.Course_Id = -1;
-                }
-                //student verification method
-                try
-                {
-                    temp.Student_Verification_Method = sdr.GetString(12);
-                }
-                catch
-                {
-                    temp.Student_Verification_Method = "NULL";
-                }
-                //grandfather
-                try
-                {
-                    temp.Grandfather = Convert.ToBoolean(sdr.GetString(13));
-                }
-                catch
-                {
-                    temp.Grandfather = false;
-                }
-                //notes
-                try
-                {
-                    temp.Notes = sdr.GetString(14);
-                }
-                catch
-                {
-                    temp.Notes = "NULL";
-                }
-                //approved
-                try
-                {
-                    temp.Approved = Convert.ToBoolean(sdr.GetString(15));
-                }
-                catch
-                {
-                    temp.Approved = false;
-                }
+                conn.Close();
 
-                courseData.Add(temp);
+                queryResults.ItemsSource = courseData;
             }
 
-            sdr.Close();
+            catch {
 
-            conn.Close();
-
-            queryResults.ItemsSource = courseData;
-
-            return;
+                txtErrorBlock.Text = "Invalid input.";
+            }
+            
         }
     }
 }
