@@ -21,6 +21,9 @@ namespace ShannonApp
 {
     /// <summary>
     /// Interaction logic for MainPage.xaml
+    /// 
+    /// 
+    /// This will run a query to show specific classes
     /// </summary>
     public partial class MainPage : Page
     {
