@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,7 +29,6 @@ namespace ShannonApp
         private ObservableCollection<string> modeList;
         private ObservableCollection<string> instructorList;
         private ObservableCollection<string> academicOrgList;
-        private Dictionary<string, string> inputFields;
 
         public update()
         {
@@ -90,7 +90,7 @@ namespace ShannonApp
             updateNotes.Text = MainPage.selectedCourse.Notes;
 
             chkBoxApproved.IsChecked = MainPage.selectedCourse.Approved;
-            
+
         }
 
         private void Window_ContentRendered(object sender, EventArgs e)
@@ -161,11 +161,249 @@ namespace ShannonApp
 
         private void btnDialogOk_Click(object sender, RoutedEventArgs e)
         {
+            //capture data and do error checking
+            //connect to the database
+            SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\WPF_Project\\Database\\Shannon.db");
+            conn.Open();
+            SQLiteCommand command = conn.CreateCommand();
+
+            //get the foreign keys for each combo box field
+
+            Dictionary<string, string> inputFields = new Dictionary<string, string>();
+
+            inputFields.Clear();
+
+            if (updateCourseArea.Text == "" || updateCourseArea.Text == "<Create New>")
+            {
+                txtUpdateResponse.Text = "Please select a valid Course Area.";
+                return;
+            }
+
+            else
+            {
+                //get the foreign key
+                command.CommandText = "Select ID from course_area where course_area = '" + updateCourseArea.Text + "';";
+                SQLiteDataReader sdr = command.ExecuteReader();
+
+                int id = -1;
+
+                while (sdr.Read())
+                {
+                    id = sdr.GetInt32(0);
+                }
+
+                if (id != -1)
+                    inputFields.Add("courseArea", id.ToString());
+
+                sdr.Close();
+            }
+
+            if (updateCourseNumber.Text == "")
+            {
+                txtUpdateResponse.Text = "Please enter a valid Course Number.";
+                return;
+            }
+            else
+            {
+                inputFields.Add("courseNumber", updateCourseNumber.Text);
+            }
+
+            if (updateTitle.Text == "")
+            {
+                inputFields.Add("title", "NULL");
+            }
+
+            else
+            {
+                inputFields.Add("title", updateTitle.Text);
+            }
+
+            if (updateDepartment.Text == "")
+            {
+                inputFields.Add("department", "NULL");
+            }
+
+            else if (updateDepartment.Text == "<Create New>")
+            {
+                txtUpdateResponse.Text = "Please select a valid department.";
+            }
+
+            else
+            {
+                //get the foreign key of the department
+                command.CommandText = "Select ID from department where department = '" + updateDepartment.Text + "';";
+                SQLiteDataReader sdr = command.ExecuteReader();
+
+                int id = -1;
+
+                while (sdr.Read())
+                {
+                    id = sdr.GetInt32(0);
+                }
+
+                if (id != -1)
+                    inputFields.Add("department", id.ToString());
+
+                sdr.Close();
+            }
+
+
+            if (updateInstructionMode.Text == "")
+            {
+                inputFields.Add("instructionMode", "NULL");
+            }
+
+            else if (updateInstructionMode.Text == "<Create New>")
+            {
+                txtUpdateResponse.Text = "Please select a valid instruction mode.";
+            }
+
+            else
+            {
+
+                command.CommandText = "Select ID from instruction_mode where instruction_mode = '" + updateInstructionMode.Text + "';";
+                SQLiteDataReader sdr = command.ExecuteReader();
+
+                int id = -1;
+
+                while (sdr.Read())
+                {
+                    id = sdr.GetInt32(0);
+                }
+
+                if (id != -1)
+                    inputFields.Add("instructionMode", id.ToString());
+
+                sdr.Close();
+            }
+
+            if (updateInstructor.Text == "")
+            {
+                inputFields.Add("instructor", "NULL");
+            }
+
+            else if (updateInstructor.Text == "<Create New>")
+            {
+                txtUpdateResponse.Text = "Please select a valid instructor.";
+            }
+
+            else
+            {
+                string[] names = Regex.Split(updateInstructor.Text, ", ");
+
+                command.CommandText = "Select ID from instructor where instructor_first_name = '" +
+                    names[1] + "' and instructor_last_name = '" + names[0] + "';";
+                SQLiteDataReader sdr = command.ExecuteReader();
+
+                int id = -1;
+
+                while (sdr.Read())
+                {
+                    id = sdr.GetInt32(0);
+                }
+
+                if (id != -1)
+                    inputFields.Add("instructor", id.ToString());
+
+                sdr.Close();
+
+            }
+
+            if (updateCourseId.Text == "")
+            {
+                inputFields.Add("courseId", "NULL");
+            }
+
+            else
+            {
+                inputFields.Add("courseId", updateCourseId.Text);
+            }
+
+            if (updateAcademicOrg.Text == "")
+            {
+                inputFields.Add("academicOrg", "NULL");
+            }
+
+            else if (updateAcademicOrg.Text == "<Create New>")
+            {
+                txtUpdateResponse.Text = "Please select a valid academic org.";
+            }
+
+            else
+            {
+                command.CommandText = "Select ID from academic_org where academic_org = '" + updateAcademicOrg.Text + "';";
+                SQLiteDataReader sdr = command.ExecuteReader();
+
+                int id = -1;
+
+                while (sdr.Read())
+                {
+                    id = sdr.GetInt32(0);
+                }
+
+                if (id != -1)
+                    inputFields.Add("academicOrg", id.ToString());
+
+                sdr.Close();
+            }
+
+            if (updateStudentVerificationMethod.Text == "")
+            {
+                inputFields.Add("studentVerif", "NULL");
+            }
+
+            else
+            {
+                inputFields.Add("studentVerif", updateStudentVerificationMethod.Text);
+            }
+
+            if (updateNotes.Text == "")
+            {
+                inputFields.Add("notes", "NULL");
+            }
+
+            else
+            {
+                inputFields.Add("notes", updateNotes.Text);
+            }
+
+            if (chkBoxApproved.IsChecked == true)
+            {
+                inputFields.Add("approved", "True");
+            }
+
+            else
+            {
+                inputFields.Add("approved", "False");
+            }
+
+            //insert the course with the corresponding properties        
+            command.CommandText = "UPDATE course " +
+                "set number ='" + inputFields["courseNumber"] + "'," +
+                "fk_course_area =" + inputFields["courseArea"] + "," +
+                "course_id =" + inputFields["courseId"] + ", " +
+                "student_verification_method ='" + inputFields["studentVerif"] + "', " +
+                "notes ='" + inputFields["notes"] + "', " +
+                "fk_department =" + inputFields["department"] + ", " +
+                "fk_instruction_mode =" + inputFields["instructionMode"] + ", " +
+                "fk_instructor =" + inputFields["instructor"] + ", " +
+                "fk_academic_org = " + inputFields["academicOrg"] + ", " +
+                "title ='" + inputFields["title"] + "', " +
+                "approved = '" + inputFields["approved"] + "' " +
+                "where course.id = " + MainPage.selectedCourse.ID.ToString() +";";
+
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch
+            {
+                txtUpdateResponse.Text = "Error updating database, check if input is valid.";
+                return;
+            }
+
+            conn.Close();
             DialogResult = true;
-
-            //capture all of the changes
-
-            //update the database
         }
 
         //Error checking similar to adding a new course
@@ -328,7 +566,7 @@ namespace ShannonApp
 
             }
         }
-            private void updateAcademicOrg_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void updateAcademicOrg_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (updateAcademicOrg.SelectedValue.ToString() != "<Create New>")
             {
@@ -368,7 +606,7 @@ namespace ShannonApp
             }
         }
 
-     
+
 
 
     }

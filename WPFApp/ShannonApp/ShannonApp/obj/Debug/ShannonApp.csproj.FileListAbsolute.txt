@@ -82,6 +82,7 @@ C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\bin\Debug\EntityFramework.xml
 C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\bin\Debug\EntityFramework.SqlServer.xml
 C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\bin\Debug\System.Data.SQLite.xml
 C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\bin\Debug\System.Data.SQLite.dll.config
+C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\ShannonApp.csprojResolveAssemblyReference.cache
 C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\AddCourse.g.cs
 C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\MainPage.g.cs
 C:\WPF_Project\WPFApp\ShannonApp\ShannonApp\obj\Debug\MainWindow.g.cs

@@ -80,7 +80,8 @@ namespace ShannonApp
                     txtErrorBlock.Text = "Course Removed";
                     populateData();
 
-                    //TO DO: remove the associated dates?
+                    btnRemove.IsEnabled = false;
+                    btnUpdate.IsEnabled = false;
                 }
 
                 else
@@ -189,7 +190,10 @@ namespace ShannonApp
 
             if(updateDialogue.DialogResult == true)
             {
+                populateData();
                 txtErrorBlock.Text = "Course has been updated.";
+                btnRemove.IsEnabled = false;
+                btnUpdate.IsEnabled = false;
             }
         }
 
