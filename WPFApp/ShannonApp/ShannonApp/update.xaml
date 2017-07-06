@@ -17,7 +17,7 @@
                         <ColumnDefinition Width="3*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Course Area: " FontWeight="Bold" Grid.Column="0"></TextBlock>
-                    <ComboBox Padding="2" x:Name="updateCourseArea" Grid.Column="1"></ComboBox>
+                    <ComboBox Padding="2" x:Name="updateCourseArea" Grid.Column="1" SelectionChanged="updateCourseArea_SelectionChanged"></ComboBox>
                 </Grid>
                 <Grid Margin="0 5">
                     <Grid.ColumnDefinitions>
@@ -41,7 +41,7 @@
                         <ColumnDefinition Width="3*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Department: " FontWeight="Bold" Grid.Column="0"></TextBlock>
-                    <ComboBox Padding="2" x:Name="updateDepartment" Grid.Column="1"></ComboBox>
+                    <ComboBox Padding="2" x:Name="updateDepartment" Grid.Column="1" SelectionChanged="updateDepartment_SelectionChanged"></ComboBox>
                 </Grid>
                 <Grid Margin="0 5">
                     <Grid.ColumnDefinitions>
@@ -49,7 +49,7 @@
                         <ColumnDefinition Width="3*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Instruction Mode: " FontWeight="Bold" Grid.Column="0"></TextBlock>
-                    <ComboBox Padding="2" x:Name="updateInstructionMode" Grid.Column="1"></ComboBox>
+                    <ComboBox Padding="2" x:Name="updateInstructionMode" Grid.Column="1" SelectionChanged="updateInstructionMode_SelectionChanged"></ComboBox>
                 </Grid>
                 <Grid Margin="0 5">
                     <Grid.ColumnDefinitions>
@@ -57,7 +57,7 @@
                         <ColumnDefinition Width="3*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Instructor: " FontWeight="Bold" Grid.Column="0"></TextBlock>
-                    <ComboBox Padding="2" x:Name="updateInstructor" Grid.Column="1" ></ComboBox>
+                    <ComboBox Padding="2" x:Name="updateInstructor" Grid.Column="1" SelectionChanged="updateInstructor_SelectionChanged"></ComboBox>
                 </Grid>
                 <Grid Margin="0 5">
                     <Grid.ColumnDefinitions>
@@ -73,7 +73,7 @@
                         <ColumnDefinition Width="3*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Academic Org: " FontWeight="Bold" Grid.Column="0"></TextBlock>
-                    <ComboBox Padding="2" x:Name="updateAcademicOrg" Grid.Column="1"></ComboBox>
+                    <ComboBox Padding="2" x:Name="updateAcademicOrg" Grid.Column="1" SelectionChanged="updateAcademicOrg_SelectionChanged"></ComboBox>
                 </Grid>
                 <Grid Margin="0 5">
                     <Grid.ColumnDefinitions>

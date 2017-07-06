@@ -185,7 +185,12 @@ namespace ShannonApp
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
             update updateDialogue = new update();
-            updateDialogue.Show();
+            updateDialogue.ShowDialog();
+
+            if(updateDialogue.DialogResult == true)
+            {
+                txtErrorBlock.Text = "Course has been updated.";
+            }
         }
 
         private void searchQuery(string query)
