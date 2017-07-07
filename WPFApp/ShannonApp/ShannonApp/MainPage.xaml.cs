@@ -270,7 +270,7 @@ namespace ShannonApp
                     }
                     catch
                     {
-                        temp.Title = "NULL";
+                        temp.Title = "";
                     }
                     //department
                     try
@@ -279,7 +279,7 @@ namespace ShannonApp
                     }
                     catch
                     {
-                        temp.Department = "NULL";
+                        temp.Department = "";
                     }
                     //instructor
                     try
@@ -288,7 +288,7 @@ namespace ShannonApp
                     }
                     catch
                     {
-                        temp.Instructor = "NULL";
+                        temp.Instructor = "";
                     }
                     //academic org
                     try
@@ -297,7 +297,7 @@ namespace ShannonApp
                     }
                     catch
                     {
-                        temp.Academic_Org = "NULL";
+                        temp.Academic_Org = "";
                     }
                     //instruction mode
                     try
@@ -306,7 +306,7 @@ namespace ShannonApp
                     }
                     catch
                     {
-                        temp.Instruction_Mode = "NULL";
+                        temp.Instruction_Mode = "";
                     }
                     //color code
                     try
@@ -315,7 +315,7 @@ namespace ShannonApp
                     }
                     catch
                     {
-                        temp.Grandfather_Color_Code = "NULL";
+                        temp.Grandfather_Color_Code = "";
                     }
                     //course id
                     try
@@ -333,7 +333,7 @@ namespace ShannonApp
                     }
                     catch
                     {
-                        temp.Student_Verification_Method = "NULL";
+                        temp.Student_Verification_Method = "";
                     }
                     //grandfather
                     try
@@ -351,7 +351,7 @@ namespace ShannonApp
                     }
                     catch
                     {
-                        temp.Notes = "NULL";
+                        temp.Notes = "";
                     }
                     //approved
                     try

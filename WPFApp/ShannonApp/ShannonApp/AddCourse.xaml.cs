@@ -401,7 +401,7 @@ namespace ShannonApp
                     return;
                 }
 
-                inputFields.Add("courseNumber", insertCourseNumber.Text);
+                inputFields.Add("courseNumber", "'" + insertCourseNumber.Text + "'");
             }
 
             if (insertTitle.Text == "")
@@ -411,7 +411,7 @@ namespace ShannonApp
 
             else
             {
-                inputFields.Add("title", insertTitle.Text);
+                inputFields.Add("title", "'" + insertTitle.Text + "'");
             }
 
             if (insertDepartment.Text == "")
@@ -512,7 +512,18 @@ namespace ShannonApp
 
             else
             {
-                inputFields.Add("courseId", insertCourseId.Text);
+                int dummy;
+                if (System.Int32.TryParse(insertCourseId.Text, out dummy))
+                {
+                    inputFields.Add("courseId", "'" + insertCourseId.Text + "'");
+                }
+
+                else
+                {
+                    txtInsertResponse.Text = "The Course ID field must be an integer or left blank.";
+                    return;
+                }
+
             }
 
             if (insertAcademicOrg.Text == "")
@@ -550,7 +561,7 @@ namespace ShannonApp
 
             else
             {
-                inputFields.Add("studentVerif", insertStudentVerificationMethod.Text);
+                inputFields.Add("studentVerif", "'" + insertStudentVerificationMethod.Text + "'");
             }
 
             if (insertNotes.Text == "")
@@ -560,21 +571,21 @@ namespace ShannonApp
 
             else
             {
-                inputFields.Add("notes", insertNotes.Text);
+                inputFields.Add("notes", "'" + insertNotes.Text + "'");
             }
 
             if (chkBoxApproved.IsChecked == true)
             {
                 inputFields.Add("approved", "True");
 
-                if(insertDate.Text == "")
+                if (insertDate.Text == "")
                 {
                     inputFields.Add("approvalDate", "NULL");
                 }
 
                 else
                 {
-                    inputFields.Add("approvalDate", insertDate.Text);
+                    inputFields.Add("approvalDate", "'" + insertDate.Text + "'");
                 }
             }
 
@@ -586,18 +597,18 @@ namespace ShannonApp
             //insert the course with the corresponding properties
             command.CommandText = "INSERT INTO course(number, fk_course_area, course_id, student_verification_method, notes, fk_department," +
                 "fk_instruction_mode, fk_instructor, fk_academic_org, title, approved) " +
-                "values ('" + inputFields["courseNumber"] + "',"
-                + inputFields["courseArea"] + ", " + inputFields["courseId"] + ", '" + inputFields["studentVerif"] + "', '" + inputFields["notes"] +
-                "', '" + inputFields["department"] + "', " + inputFields["instructionMode"] + "," + inputFields["instructor"] + "," + inputFields["academicOrg"] + "," +
-                "'" + inputFields["title"] + "','" + inputFields["approved"] + "');";
+                "values (" + inputFields["courseNumber"] + ","
+                + inputFields["courseArea"] + ", " + inputFields["courseId"] + ", " + inputFields["studentVerif"] + ", " + inputFields["notes"] +
+                ", " + inputFields["department"] + ", " + inputFields["instructionMode"] + "," + inputFields["instructor"] + "," + inputFields["academicOrg"] + "," +
+                inputFields["title"] + ",'" + inputFields["approved"] + "');";
 
             try
             {
-                command.ExecuteNonQuery();              
+                command.ExecuteNonQuery();
                 if (chkBoxApproved.IsChecked == true)
                 {
                     getId("Select id from course order by 1 desc limit 1;", "ID", ref command);
-                    command.CommandText = "INSERT into approval_date(approval_date, fk_course) values('"+ inputFields["approvalDate"] + "'," + inputFields["ID"] + ");";
+                    command.CommandText = "INSERT into approval_date(approval_date, fk_course) values('" + inputFields["approvalDate"] + "'," + inputFields["ID"] + ");";
                     command.ExecuteNonQuery();
                 }
             }

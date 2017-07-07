@@ -91,6 +91,7 @@ namespace ShannonApp
 
             chkBoxApproved.IsChecked = MainPage.selectedCourse.Approved;
 
+            updateDate.Text = MainPage.selectedCourse.Approval_Date; 
         }
 
         private void Window_ContentRendered(object sender, EventArgs e)
@@ -205,7 +206,7 @@ namespace ShannonApp
             }
             else
             {
-                inputFields.Add("courseNumber", updateCourseNumber.Text);
+                inputFields.Add("courseNumber", "'" + updateCourseNumber.Text + "'");
             }
 
             if (updateTitle.Text == "")
@@ -215,7 +216,7 @@ namespace ShannonApp
 
             else
             {
-                inputFields.Add("title", updateTitle.Text);
+                inputFields.Add("title", "'" + updateTitle.Text + "'");
             }
 
             if (updateDepartment.Text == "")
@@ -316,7 +317,18 @@ namespace ShannonApp
 
             else
             {
-                inputFields.Add("courseId", updateCourseId.Text);
+                int dummy;
+                if (System.Int32.TryParse(updateCourseId.Text, out dummy))
+                {
+                    inputFields.Add("courseId", "'" + updateCourseId.Text + "'");
+                }
+
+                else
+                {
+                    txtUpdateResponse.Text = "The Course ID field must be an integer or left blank.";
+                    return;
+                }
+
             }
 
             if (updateAcademicOrg.Text == "")
@@ -354,7 +366,7 @@ namespace ShannonApp
 
             else
             {
-                inputFields.Add("studentVerif", updateStudentVerificationMethod.Text);
+                inputFields.Add("studentVerif", "'" + updateStudentVerificationMethod.Text + "'");
             }
 
             if (updateNotes.Text == "")
@@ -364,12 +376,69 @@ namespace ShannonApp
 
             else
             {
-                inputFields.Add("notes", updateNotes.Text);
+                inputFields.Add("notes", "'" + updateNotes.Text + "'");
             }
 
             if (chkBoxApproved.IsChecked == true)
             {
                 inputFields.Add("approved", "True");
+
+                //check if there is a date associated with the course
+                command.CommandText = "Select ID, approval_date from approval_date where fk_course = "  + MainPage.selectedCourse.ID + ";";
+                SQLiteDataReader sdr = command.ExecuteReader();
+
+                int id = -1;
+                string tempDate = "";
+
+                while (sdr.Read())
+                {
+                    id = sdr.GetInt32(0);
+                    try { tempDate = Convert.ToDateTime(sdr.GetString(1)).ToShortDateString(); }
+                    catch { tempDate = ""; }
+                }
+                sdr.Close();
+
+                DateTime tester;
+
+                if (id == -1)
+                {
+                    
+                    //check if there is a valid date
+                    if (updateDate.Text != "")
+                    {
+                        
+                        if (System.DateTime.TryParse(updateDate.Text, out tester))
+                        {
+                            command.CommandText = "Insert into approval_date (approval_date, fk_course) Values('" + tester.ToShortDateString() + "', " + MainPage.selectedCourse.ID +");";
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                    else
+                    {
+                        command.CommandText = "Insert into approval_date (approval_date, fk_course) Values(NULL," + MainPage.selectedCourse.ID +");";
+                        command.ExecuteNonQuery();
+                    }
+                }
+
+                else
+                {
+                    //update the existing date
+                    if(updateDate.Text != "")
+                    {
+                        if(System.DateTime.TryParse(updateDate.Text, out tester))
+                        {
+                            command.CommandText = "Update approval_date set approval_date = '" + tester.ToShortDateString() + "' where fk_course =" + MainPage.selectedCourse.ID + ";";
+                            command.ExecuteNonQuery();
+                        }
+                        
+                    }
+                    else
+                    {
+                        command.CommandText = "Update approval_date set approval_date = NULL where fk_course =" + MainPage.selectedCourse.ID + ";";
+                        command.ExecuteNonQuery();
+                    }
+                    
+                }                    
             }
 
             else
@@ -379,16 +448,16 @@ namespace ShannonApp
 
             //insert the course with the corresponding properties        
             command.CommandText = "UPDATE course " +
-                "set number ='" + inputFields["courseNumber"] + "'," +
+                "set number =" + inputFields["courseNumber"] + "," +
                 "fk_course_area =" + inputFields["courseArea"] + "," +
                 "course_id =" + inputFields["courseId"] + ", " +
-                "student_verification_method ='" + inputFields["studentVerif"] + "', " +
-                "notes ='" + inputFields["notes"] + "', " +
+                "student_verification_method =" + inputFields["studentVerif"] + ", " +
+                "notes =" + inputFields["notes"] + ", " +
                 "fk_department =" + inputFields["department"] + ", " +
                 "fk_instruction_mode =" + inputFields["instructionMode"] + ", " +
                 "fk_instructor =" + inputFields["instructor"] + ", " +
                 "fk_academic_org = " + inputFields["academicOrg"] + ", " +
-                "title ='" + inputFields["title"] + "', " +
+                "title =" + inputFields["title"] + ", " +
                 "approved = '" + inputFields["approved"] + "' " +
                 "where course.id = " + MainPage.selectedCourse.ID.ToString() +";";
 
@@ -606,8 +675,14 @@ namespace ShannonApp
             }
         }
 
+        private void chkBoxApproved_Checked(object sender, RoutedEventArgs e)
+        {
+            updateDate.IsEnabled = true;
+        }
 
-
-
+        private void chkBoxApproved_Unchecked(object sender, RoutedEventArgs e)
+        {
+            updateDate.IsEnabled = false;
+        }
     }
 }
