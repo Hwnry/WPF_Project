@@ -49,7 +49,9 @@ namespace ShannonApp
         {
             txtErrorBlock.Text = "";
 
+           
             populateData();
+ 
         }
 
         private void queryResults_SelectionChanged(object sender, SelectionChangedEventArgs e)
