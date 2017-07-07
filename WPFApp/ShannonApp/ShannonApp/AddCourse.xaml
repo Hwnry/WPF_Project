@@ -91,16 +91,25 @@
                     <TextBlock Text="Notes: " FontWeight="Bold" Grid.Column="0"></TextBlock>
                     <TextBox Padding="2" x:Name="insertNotes" Grid.Column="1"></TextBox>
                 </Grid>
-                <Grid>
+                <Grid Margin="0 5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="3*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Approved: " FontWeight="Bold" Grid.Column="0"></TextBlock>
-                    <CheckBox x:Name="chkBoxApproved" Grid.Column="1"></CheckBox>
+                    <CheckBox x:Name="chkBoxApproved" Grid.Column="1" Checked="chkBoxApproved_Checked" Unchecked="chkBoxApproved_Unchecked"></CheckBox>
+                </Grid>
+                <Grid Margin="0 5 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Approval Date: " FontWeight="Bold" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
+                    <DatePicker  x:Name="insertDate" Grid.Column="1" HorizontalAlignment="Left" IsEnabled="False"/>
+
                 </Grid>
                 
-                <Button Content="Add Course" Margin="0, 20, 0, 0" x:Name="btnInsert" Click="btnInsert_Click"></Button>
+                <Button Content="Add Course" Margin="0, 20, 0, 0" x:Name="btnInsert" Click="btnInsert_Click" MinHeight="30"></Button>
 
                 <TextBlock x:Name="txtInsertResponse" Margin="0 20" Text="" FontWeight="Bold" Foreground="Red" FontSize="15" HorizontalAlignment="Center"></TextBlock>
             </StackPanel>

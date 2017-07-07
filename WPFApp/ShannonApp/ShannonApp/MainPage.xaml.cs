@@ -233,11 +233,12 @@ namespace ShannonApp
                     //approval date
                     try
                     {
-                        temp.Approval_Date = sdr.GetDateTime(1);
+                        DateTime dummy = Convert.ToDateTime(sdr.GetString(1));
+                        temp.Approval_Date = dummy.ToShortDateString();
                     }
                     catch
                     {
-                        temp.Approval_Date = new DateTime(1, 1, 1);
+                        temp.Approval_Date = "";
                     }
 
                     //course area

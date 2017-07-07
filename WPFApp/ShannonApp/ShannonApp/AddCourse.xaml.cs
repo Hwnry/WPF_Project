@@ -68,6 +68,8 @@ namespace ShannonApp
 
             insertInstructor.ItemsSource = instructorList;
 
+            insertDate.SelectedDate = System.DateTime.Now;
+
         }
 
 
@@ -564,13 +566,22 @@ namespace ShannonApp
             if (chkBoxApproved.IsChecked == true)
             {
                 inputFields.Add("approved", "True");
+
+                if(insertDate.Text == "")
+                {
+                    inputFields.Add("approvalDate", "NULL");
+                }
+
+                else
+                {
+                    inputFields.Add("approvalDate", insertDate.Text);
+                }
             }
 
             else
             {
                 inputFields.Add("approved", "False");
             }
-
 
             //insert the course with the corresponding properties
             command.CommandText = "INSERT INTO course(number, fk_course_area, course_id, student_verification_method, notes, fk_department," +
@@ -579,14 +590,61 @@ namespace ShannonApp
                 + inputFields["courseArea"] + ", " + inputFields["courseId"] + ", '" + inputFields["studentVerif"] + "', '" + inputFields["notes"] +
                 "', '" + inputFields["department"] + "', " + inputFields["instructionMode"] + "," + inputFields["instructor"] + "," + inputFields["academicOrg"] + "," +
                 "'" + inputFields["title"] + "','" + inputFields["approved"] + "');";
-            command.ExecuteNonQuery();
 
+            try
+            {
+                command.ExecuteNonQuery();              
+                if (chkBoxApproved.IsChecked == true)
+                {
+                    getId("Select id from course order by 1 desc limit 1;", "ID", ref command);
+                    command.CommandText = "INSERT into approval_date(approval_date, fk_course) values('"+ inputFields["approvalDate"] + "'," + inputFields["ID"] + ");";
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch
+            {
+                txtInsertResponse.Text = "Error inserting data into database.";
+            }
 
 
             conn.Close();
 
             NavigationService nav = NavigationService.GetNavigationService(this);
             nav.Navigate(new Uri("MainPage.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void chkBoxApproved_Checked(object sender, RoutedEventArgs e)
+        {
+            insertDate.IsEnabled = true;
+        }
+
+        private void chkBoxApproved_Unchecked(object sender, RoutedEventArgs e)
+        {
+            insertDate.IsEnabled = false;
+        }
+
+        private bool getId(string selectStatement, string field, ref SQLiteCommand command)
+        {
+            command.CommandText = selectStatement;
+            SQLiteDataReader sdr = command.ExecuteReader();
+
+            int id = -1;
+
+            while (sdr.Read())
+            {
+                id = sdr.GetInt32(0);
+            }
+
+            if (id != -1)
+            {
+                inputFields.Add(field, id.ToString());
+                sdr.Close();
+                return true;
+            }
+
+
+            return false;
+
         }
     }
 }

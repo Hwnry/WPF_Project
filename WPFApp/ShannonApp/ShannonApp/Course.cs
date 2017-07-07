@@ -9,7 +9,7 @@ namespace ShannonApp
     public class Course
     {
         public int ID { get; set; }
-        public DateTime Approval_Date { get; set; }
+        public string Approval_Date { get; set; }
         public string Course_Area { get; set; }
         public string Course_Number { get; set; }
         public string Title { get; set; }

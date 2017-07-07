@@ -1,7 +1,0 @@
-select * --temp.[approval date] 
-from course
-inner join course_area
-on course.fk_course_area = course_area.id
-inner join temp
-on temp.Course = course_area.Course_Area
-and course.number = temp.number
