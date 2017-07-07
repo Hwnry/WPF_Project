@@ -36,7 +36,7 @@ namespace ShannonApp
 
             //populate all of the comboboxes
 
-            SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\WPF_Project\\Database\\Shannon.db");
+            SQLiteConnection conn = new SQLiteConnection(MainPage.defaultConnection);
             conn.Open();
             SQLiteCommand command = conn.CreateCommand();
 
@@ -164,7 +164,7 @@ namespace ShannonApp
         {
             //capture data and do error checking
             //connect to the database
-            SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\WPF_Project\\Database\\Shannon.db");
+            SQLiteConnection conn = new SQLiteConnection(MainPage.defaultConnection);
             conn.Open();
             SQLiteCommand command = conn.CreateCommand();
 
@@ -489,7 +489,7 @@ namespace ShannonApp
                 if (inputCourseDialog.ShowDialog() == true)
                 {
                     //connect to the database
-                    SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\WPF_Project\\Database\\Shannon.db");
+                    SQLiteConnection conn = new SQLiteConnection(MainPage.defaultConnection);
                     conn.Open();
                     SQLiteCommand command = conn.CreateCommand();
 
@@ -531,7 +531,7 @@ namespace ShannonApp
                 if (inputDepartmentDialog.ShowDialog() == true)
                 {
                     //connect to the database
-                    SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\WPF_Project\\Database\\Shannon.db");
+                    SQLiteConnection conn = new SQLiteConnection(MainPage.defaultConnection);
                     conn.Open();
                     SQLiteCommand command = conn.CreateCommand();
 
@@ -572,7 +572,7 @@ namespace ShannonApp
                 if (inputInstructionDialog.ShowDialog() == true)
                 {
                     //connect to the database
-                    SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\WPF_Project\\Database\\Shannon.db");
+                    SQLiteConnection conn = new SQLiteConnection(MainPage.defaultConnection);
                     conn.Open();
                     SQLiteCommand command = conn.CreateCommand();
 
@@ -610,7 +610,7 @@ namespace ShannonApp
                 if (inputInstructorDialog.ShowDialog() == true)
                 {
                     //connect to the database
-                    SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\WPF_Project\\Database\\Shannon.db");
+                    SQLiteConnection conn = new SQLiteConnection(MainPage.defaultConnection);
                     conn.Open();
                     SQLiteCommand command = conn.CreateCommand();
 
@@ -650,7 +650,7 @@ namespace ShannonApp
                 if (inputAcademicDialog.ShowDialog() == true)
                 {
                     //connect to the database
-                    SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\WPF_Project\\Database\\Shannon.db");
+                    SQLiteConnection conn = new SQLiteConnection(MainPage.defaultConnection);
                     conn.Open();
                     SQLiteCommand command = conn.CreateCommand();
 

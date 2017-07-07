@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SQLite;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -29,6 +30,7 @@ namespace ShannonApp
     {
         private static ObservableCollection<Course> courseData;
         public static Course selectedCourse;
+        public const string defaultConnection = "Data Source = //storage.unr.edu/xs/Istudy/shannon/quality assurance/shannon.db"; 
 
         public MainPage()
         {
@@ -51,6 +53,8 @@ namespace ShannonApp
 
            
             populateData();
+
+            txtErrorBlock.Text = "Finished populating results.";
  
         }
 
@@ -73,7 +77,7 @@ namespace ShannonApp
             if (removeDialogue.ShowDialog() == true)
             {
                 //run query to remove the course
-                SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\WPF_Project\\Database\\Shannon.db");
+                SQLiteConnection conn = new SQLiteConnection(MainPage.defaultConnection);
                 conn.Open();
                 SQLiteCommand command = conn.CreateCommand();
 
@@ -81,10 +85,9 @@ namespace ShannonApp
                 if (test != null)
                 {
                     command.CommandText = "DELETE FROM course WHERE ID = " + test.ID.ToString() + ";" + "DELETE FROM approval_date WHERE fk_course =" + test.ID.ToString() +";";
-                    command.ExecuteNonQuery();
-                    txtErrorBlock.Text = "Course Removed";
+                    command.ExecuteNonQuery();                   
                     populateData();
-
+                    txtErrorBlock.Text = "Course Removed";
                     btnRemove.IsEnabled = false;
                     btnUpdate.IsEnabled = false;
                 }
@@ -99,8 +102,7 @@ namespace ShannonApp
         }
 
         private void populateData()
-        {
-
+        {       
             courseData.Clear();
             //connect to the database
 
@@ -144,8 +146,8 @@ namespace ShannonApp
                     "course.FK_Instruction_Mode left outer join grandfather_color_code on grandfather_color_code.id " +
                     "= course.FK_Grandfather_Color_Code left outer join instructor on instructor.id = " +
                     "course.FK_Instructor left outer join academic_org on academic_org.id = course.FK_Academic_ORG" +
-                    " left outer join approval_date on approval_date.FK_Course = course.id Where course_area = '" +
-                    txtCourseArea.Text.ToUpper().Trim() + "';");
+                    " left outer join approval_date on approval_date.FK_Course = course.id Where course_area like '%" +
+                    txtCourseArea.Text.ToUpper().Trim() + "%';");
 
             }
 
@@ -164,7 +166,7 @@ namespace ShannonApp
                     "course.FK_Instruction_Mode left outer join grandfather_color_code on grandfather_color_code.id " +
                     "= course.FK_Grandfather_Color_Code left outer join instructor on instructor.id = " +
                     "course.FK_Instructor left outer join academic_org on academic_org.id = course.FK_Academic_ORG" +
-                    " left outer join approval_date on approval_date.FK_Course = course.id Where number = " + txtCourseNumber.Text.Trim() + ";");
+                    " left outer join approval_date on approval_date.FK_Course = course.id Where number like '%" + txtCourseNumber.Text.Trim() + "%';");
 
             }
 
@@ -183,9 +185,11 @@ namespace ShannonApp
                     "course.FK_Instruction_Mode left outer join grandfather_color_code on grandfather_color_code.id " +
                     "= course.FK_Grandfather_Color_Code left outer join instructor on instructor.id = " +
                     "course.FK_Instructor left outer join academic_org on academic_org.id = course.FK_Academic_ORG" +
-                    " left outer join approval_date on approval_date.FK_Course = course.id Where course_area = '" +
-                    txtCourseArea.Text.ToUpper().Trim() + "' and number = " + txtCourseNumber.Text.Trim() + ";");          
+                    " left outer join approval_date on approval_date.FK_Course = course.id Where course_area like '%" +
+                    txtCourseArea.Text.ToUpper().Trim() + "%' and number like '%" + txtCourseNumber.Text.Trim() + "%';");          
             }
+
+            
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
@@ -202,9 +206,10 @@ namespace ShannonApp
             }
         }
 
-        private void searchQuery(string query)
+        private async void searchQuery(string query)
         {
-            SQLiteConnection conn = new SQLiteConnection("Data Source=C:\\WPF_Project\\Database\\Shannon.db");
+            
+            SQLiteConnection conn = new SQLiteConnection(MainPage.defaultConnection);
             conn.Open();
             SQLiteCommand command = conn.CreateCommand();
 
@@ -212,10 +217,14 @@ namespace ShannonApp
 
             try
             {
+                int i = 1;
                 SQLiteDataReader sdr = command.ExecuteReader();
 
                 while (sdr.Read())
                 {
+
+                    txtErrorBlock.Text = "Populating Course: " + i.ToString();
+                    await Task.Delay(TimeSpan.FromMilliseconds(1)); 
                     Course temp = new Course();
 
                     //try to get each data entry
@@ -246,7 +255,7 @@ namespace ShannonApp
                     //course area
                     try
                     {
-                        temp.Course_Area = sdr.GetString(2);
+                        temp.Course_Area = sdr.GetString(2).Trim();
                     }
                     catch
                     {
@@ -257,7 +266,7 @@ namespace ShannonApp
                     //course number
                     try
                     {
-                        temp.Course_Number = sdr.GetString(3);
+                        temp.Course_Number = sdr.GetString(3).Trim();
                     }
                     catch
                     {
@@ -366,6 +375,7 @@ namespace ShannonApp
                     }
 
                     courseData.Add(temp);
+                    i++;
                 }
 
                 sdr.Close();

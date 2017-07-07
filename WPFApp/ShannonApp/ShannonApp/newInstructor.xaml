@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShannonApp"
         mc:Ignorable="d"
-        Title="newInstructor" Height="200" Width="300"
+        Title="Add New Instructor" Height="200" Width="300"
         WindowStartupLocation="CenterScreen"
         ContentRendered="Window_ContentRendered">
     <Grid>

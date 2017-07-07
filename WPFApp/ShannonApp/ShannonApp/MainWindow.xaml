@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShannonApp"
         mc:Ignorable="d"
-        Title="ToaderSupreme" Height="600" Width="850"
+        Title="Quality Assurance Application" Height="600" Width="850"
         WindowStartupLocation="CenterScreen">
     <Frame x:Name="Main"></Frame>
 </Window>
