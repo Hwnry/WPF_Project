@@ -174,7 +174,7 @@ namespace ShannonApp
 
             inputFields.Clear();
 
-            if (updateCourseArea.Text == "" || updateCourseArea.Text == "<Create New>")
+            if (updateCourseArea.Text.Trim() == "" || updateCourseArea.Text.Trim() == "<Create New>")
             {
                 txtUpdateResponse.Text = "Please select a valid Course Area.";
                 return;
@@ -183,7 +183,7 @@ namespace ShannonApp
             else
             {
                 //get the foreign key
-                command.CommandText = "Select ID from course_area where course_area = '" + updateCourseArea.Text + "';";
+                command.CommandText = "Select ID from course_area where course_area = '" + updateCourseArea.Text.Trim() + "';";
                 SQLiteDataReader sdr = command.ExecuteReader();
 
                 int id = -1;
@@ -199,32 +199,32 @@ namespace ShannonApp
                 sdr.Close();
             }
 
-            if (updateCourseNumber.Text == "")
+            if (updateCourseNumber.Text.Trim() == "")
             {
                 txtUpdateResponse.Text = "Please enter a valid Course Number.";
                 return;
             }
             else
             {
-                inputFields.Add("courseNumber", "'" + updateCourseNumber.Text + "'");
+                inputFields.Add("courseNumber", "'" + updateCourseNumber.Text.Trim() + "'");
             }
 
-            if (updateTitle.Text == "")
+            if (updateTitle.Text.Trim() == "")
             {
                 inputFields.Add("title", "NULL");
             }
 
             else
             {
-                inputFields.Add("title", "'" + updateTitle.Text + "'");
+                inputFields.Add("title", "'" + updateTitle.Text.Trim() + "'");
             }
 
-            if (updateDepartment.Text == "")
+            if (updateDepartment.Text.Trim() == "")
             {
                 inputFields.Add("department", "NULL");
             }
 
-            else if (updateDepartment.Text == "<Create New>")
+            else if (updateDepartment.Text.Trim() == "<Create New>")
             {
                 txtUpdateResponse.Text = "Please select a valid department.";
             }
@@ -232,7 +232,7 @@ namespace ShannonApp
             else
             {
                 //get the foreign key of the department
-                command.CommandText = "Select ID from department where department = '" + updateDepartment.Text + "';";
+                command.CommandText = "Select ID from department where department = '" + updateDepartment.Text.Trim() + "';";
                 SQLiteDataReader sdr = command.ExecuteReader();
 
                 int id = -1;
@@ -249,12 +249,12 @@ namespace ShannonApp
             }
 
 
-            if (updateInstructionMode.Text == "")
+            if (updateInstructionMode.Text.Trim() == "")
             {
                 inputFields.Add("instructionMode", "NULL");
             }
 
-            else if (updateInstructionMode.Text == "<Create New>")
+            else if (updateInstructionMode.Text.Trim() == "<Create New>")
             {
                 txtUpdateResponse.Text = "Please select a valid instruction mode.";
             }
@@ -262,7 +262,7 @@ namespace ShannonApp
             else
             {
 
-                command.CommandText = "Select ID from instruction_mode where instruction_mode = '" + updateInstructionMode.Text + "';";
+                command.CommandText = "Select ID from instruction_mode where instruction_mode = '" + updateInstructionMode.Text.Trim() + "';";
                 SQLiteDataReader sdr = command.ExecuteReader();
 
                 int id = -1;
@@ -278,19 +278,19 @@ namespace ShannonApp
                 sdr.Close();
             }
 
-            if (updateInstructor.Text == "")
+            if (updateInstructor.Text.Trim() == "")
             {
                 inputFields.Add("instructor", "NULL");
             }
 
-            else if (updateInstructor.Text == "<Create New>")
+            else if (updateInstructor.Text.Trim() == "<Create New>")
             {
                 txtUpdateResponse.Text = "Please select a valid instructor.";
             }
 
             else
             {
-                string[] names = Regex.Split(updateInstructor.Text, ", ");
+                string[] names = Regex.Split(updateInstructor.Text.Trim(), ", ");
 
                 command.CommandText = "Select ID from instructor where instructor_first_name = '" +
                     names[1] + "' and instructor_last_name = '" + names[0] + "';";
@@ -310,7 +310,7 @@ namespace ShannonApp
 
             }
 
-            if (updateCourseId.Text == "")
+            if (updateCourseId.Text.Trim() == "")
             {
                 inputFields.Add("courseId", "NULL");
             }
@@ -318,9 +318,9 @@ namespace ShannonApp
             else
             {
                 int dummy;
-                if (System.Int32.TryParse(updateCourseId.Text, out dummy))
+                if (System.Int32.TryParse(updateCourseId.Text.Trim(), out dummy))
                 {
-                    inputFields.Add("courseId", "'" + updateCourseId.Text + "'");
+                    inputFields.Add("courseId", "'" + updateCourseId.Text.Trim() + "'");
                 }
 
                 else
@@ -331,7 +331,7 @@ namespace ShannonApp
 
             }
 
-            if (updateAcademicOrg.Text == "")
+            if (updateAcademicOrg.Text.Trim() == "")
             {
                 inputFields.Add("academicOrg", "NULL");
             }
@@ -343,7 +343,7 @@ namespace ShannonApp
 
             else
             {
-                command.CommandText = "Select ID from academic_org where academic_org = '" + updateAcademicOrg.Text + "';";
+                command.CommandText = "Select ID from academic_org where academic_org = '" + updateAcademicOrg.Text.Trim() + "';";
                 SQLiteDataReader sdr = command.ExecuteReader();
 
                 int id = -1;
@@ -359,24 +359,24 @@ namespace ShannonApp
                 sdr.Close();
             }
 
-            if (updateStudentVerificationMethod.Text == "")
+            if (updateStudentVerificationMethod.Text.Trim() == "")
             {
                 inputFields.Add("studentVerif", "NULL");
             }
 
             else
             {
-                inputFields.Add("studentVerif", "'" + updateStudentVerificationMethod.Text + "'");
+                inputFields.Add("studentVerif", "'" + updateStudentVerificationMethod.Text.Trim() + "'");
             }
 
-            if (updateNotes.Text == "")
+            if (updateNotes.Text.Trim() == "")
             {
                 inputFields.Add("notes", "NULL");
             }
 
             else
             {
-                inputFields.Add("notes", "'" + updateNotes.Text + "'");
+                inputFields.Add("notes", "'" + updateNotes.Text.Trim() + "'");
             }
 
             if (chkBoxApproved.IsChecked == true)
@@ -404,10 +404,10 @@ namespace ShannonApp
                 {
                     
                     //check if there is a valid date
-                    if (updateDate.Text != "")
+                    if (updateDate.Text.Trim() != "")
                     {
                         
-                        if (System.DateTime.TryParse(updateDate.Text, out tester))
+                        if (System.DateTime.TryParse(updateDate.Text.Trim(), out tester))
                         {
                             command.CommandText = "Insert into approval_date (approval_date, fk_course) Values('" + tester.ToShortDateString() + "', " + MainPage.selectedCourse.ID +");";
                             command.ExecuteNonQuery();
@@ -423,9 +423,9 @@ namespace ShannonApp
                 else
                 {
                     //update the existing date
-                    if(updateDate.Text != "")
+                    if(updateDate.Text.Trim() != "")
                     {
-                        if(System.DateTime.TryParse(updateDate.Text, out tester))
+                        if(System.DateTime.TryParse(updateDate.Text.Trim(), out tester))
                         {
                             command.CommandText = "Update approval_date set approval_date = '" + tester.ToShortDateString() + "' where fk_course =" + MainPage.selectedCourse.ID + ";";
                             command.ExecuteNonQuery();
@@ -478,12 +478,12 @@ namespace ShannonApp
         //Error checking similar to adding a new course
         private void updateCourseArea_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (updateCourseArea.SelectedValue.ToString() != "<Create New>")
+            if (updateCourseArea.SelectedValue.ToString().Trim() != "<Create New>")
             {
                 return;
             }
 
-            else if (updateCourseArea.SelectedValue.ToString() == "<Create New>")
+            else if (updateCourseArea.SelectedValue.ToString().Trim() == "<Create New>")
             {
                 newCourseArea inputCourseDialog = new newCourseArea();
                 if (inputCourseDialog.ShowDialog() == true)
@@ -559,12 +559,12 @@ namespace ShannonApp
 
         private void updateInstructionMode_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (updateInstructionMode.SelectedValue.ToString() != "<Create New>")
+            if (updateInstructionMode.SelectedValue.ToString().Trim() != "<Create New>")
             {
                 return;
             }
 
-            else if (updateInstructionMode.SelectedValue.ToString() == "<Create New>")
+            else if (updateInstructionMode.SelectedValue.ToString().Trim() == "<Create New>")
             {
 
                 newInstructionMode inputInstructionDialog = new newInstructionMode();
@@ -599,11 +599,11 @@ namespace ShannonApp
 
         private void updateInstructor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (updateInstructor.SelectedValue.ToString() != "<Create New>")
+            if (updateInstructor.SelectedValue.ToString().Trim() != "<Create New>")
             {
                 return;
             }
-            else if (updateInstructor.SelectedValue.ToString() == "<Create New>")
+            else if (updateInstructor.SelectedValue.ToString().Trim() == "<Create New>")
             {
                 newInstructor inputInstructorDialog = new newInstructor();
 
@@ -637,12 +637,12 @@ namespace ShannonApp
         }
         private void updateAcademicOrg_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (updateAcademicOrg.SelectedValue.ToString() != "<Create New>")
+            if (updateAcademicOrg.SelectedValue.ToString().Trim() != "<Create New>")
             {
                 return;
             }
 
-            else if (updateAcademicOrg.SelectedValue.ToString() == "<Create New>")
+            else if (updateAcademicOrg.SelectedValue.ToString().Trim() == "<Create New>")
             {
 
                 newInstructionMode inputAcademicDialog = new newInstructionMode();

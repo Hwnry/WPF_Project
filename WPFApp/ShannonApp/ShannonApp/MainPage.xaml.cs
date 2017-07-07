@@ -103,7 +103,7 @@ namespace ShannonApp
             //connect to the database
 
 
-            if (txtCourseArea.Text == "" && txtCourseNumber.Text == "")
+            if (txtCourseArea.Text.Trim() == "" && txtCourseNumber.Text.Trim() == "")
             {
                 //get everything
 
@@ -126,7 +126,7 @@ namespace ShannonApp
 
             }
 
-            else if (txtCourseArea.Text != "" && txtCourseNumber.Text == "")
+            else if (txtCourseArea.Text.Trim() != "" && txtCourseNumber.Text.Trim() == "")
             {
                 ////get only matching course areas
 
@@ -143,11 +143,11 @@ namespace ShannonApp
                     "= course.FK_Grandfather_Color_Code left outer join instructor on instructor.id = " +
                     "course.FK_Instructor left outer join academic_org on academic_org.id = course.FK_Academic_ORG" +
                     " left outer join approval_date on approval_date.FK_Course = course.id Where course_area = '" +
-                    txtCourseArea.Text.ToUpper() + "';");
+                    txtCourseArea.Text.ToUpper().Trim() + "';");
 
             }
 
-            else if (txtCourseArea.Text == "" && txtCourseNumber.Text != "")
+            else if (txtCourseArea.Text.Trim() == "" && txtCourseNumber.Text.Trim() != "")
             {
                 //only search course number
                 searchQuery("select course.id as 'Course ID', approval_date as 'Approval Date', course_area as 'Course Area'," +
@@ -162,7 +162,7 @@ namespace ShannonApp
                     "course.FK_Instruction_Mode left outer join grandfather_color_code on grandfather_color_code.id " +
                     "= course.FK_Grandfather_Color_Code left outer join instructor on instructor.id = " +
                     "course.FK_Instructor left outer join academic_org on academic_org.id = course.FK_Academic_ORG" +
-                    " left outer join approval_date on approval_date.FK_Course = course.id Where number = " + txtCourseNumber.Text + ";");
+                    " left outer join approval_date on approval_date.FK_Course = course.id Where number = " + txtCourseNumber.Text.Trim() + ";");
 
             }
 
@@ -182,7 +182,7 @@ namespace ShannonApp
                     "= course.FK_Grandfather_Color_Code left outer join instructor on instructor.id = " +
                     "course.FK_Instructor left outer join academic_org on academic_org.id = course.FK_Academic_ORG" +
                     " left outer join approval_date on approval_date.FK_Course = course.id Where course_area = '" +
-                    txtCourseArea.Text.ToUpper() + "' and number = " + txtCourseNumber.Text + ";");          
+                    txtCourseArea.Text.ToUpper().Trim() + "' and number = " + txtCourseNumber.Text.Trim() + ";");          
             }
         }
 
